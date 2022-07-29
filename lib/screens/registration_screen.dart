@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flash_chat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 
 class RegistrationScreen extends StatefulWidget {
   @override
@@ -64,17 +66,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 elevation: 5.0,
                 child: MaterialButton(
                   onPressed: () async {
+                    EasyLoading.show();
                     try {
-                      var newuser = await _auth?.createUserWithEmailAndPassword(
+                      int newuser = await _auth?.createUserWithEmailAndPassword(
                           email: email, password: password);
-                      print(" Null");
 
+                      EasyLoading.dismiss();
                       if (newuser != null) {
-                        print("not Null");
                         Navigator.pushNamed(context, '/chat');
                       }
                     } catch (e) {
                       print(e);
+
+                      EasyLoading.showError('Invalid Email or Password.');
                     }
                   },
                   minWidth: 200.0,

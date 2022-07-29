@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flash_chat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -8,28 +9,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  late String email, password;
+  bool showSpinner = false;
 
-  User? currentLoggedinUser;
-
-  void getCurrentUser() async {
-    try {
-      final newUser = await _auth.currentUser;
-
-      if (newUser != null) {
-        currentLoggedinUser = newUser;
-        print(currentLoggedinUser?.email);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getCurrentUser();
-  }
+  FirebaseAuth? _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +39,8 @@ class _LoginScreenState extends State<LoginScreen> {
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.grey.shade900),
               onChanged: (value) {
+                email = value;
+
                 //Do something with the user input.
               },
               decoration: kTextFieldDecoration,
@@ -68,6 +53,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: TextStyle(color: Colors.grey.shade900),
                 obscureText: true,
                 onChanged: (value) {
+                  password = value;
+
                   //Do something with the user input.
                 },
                 decoration:
@@ -82,9 +69,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 elevation: 5.0,
                 child: MaterialButton(
-                  onPressed: () {
-                    //Implement login functionality.
-                    Navigator.pushNamed(context, '/chat');
+                  onPressed: () async {
+                    EasyLoading.show();
+
+                    try {
+                      final User = await _auth?.signInWithEmailAndPassword(
+                          email: email, password: password);
+                      EasyLoading.dismiss();
+
+                      if (User != null) {
+                        Navigator.pushNamed(context, '/chat');
+                      }
+                    } catch (e) {
+                      print(e);
+                      EasyLoading.showError('Invalid Email or Password.');
+                    }
                   },
                   minWidth: 200.0,
                   height: 42.0,

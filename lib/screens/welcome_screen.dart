@@ -7,10 +7,13 @@ class WelcomeScreen extends StatefulWidget {
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen>
+class _WelcomeScreenState  extends State<WelcomeScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation animation, animation2;
+
+  
+  
   @override
   void initState() {
     // TODO: implement initState
@@ -66,7 +69,8 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                         ),
                         speed: Duration(milliseconds: 200))
                   ],
-                  isRepeatingAnimation: false,
+                  isRepeatingAnimation: true,
+                  totalRepeatCount: 2,
                 ),
               ],
             ),
