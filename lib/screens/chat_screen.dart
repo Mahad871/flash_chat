@@ -146,6 +146,7 @@ class MessageBuilder extends StatelessWidget {
           }
           return Expanded(
             child: ListView(
+              reverse: true,
               children: chatList,
             ),
           );
