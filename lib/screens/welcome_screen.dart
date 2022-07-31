@@ -55,7 +55,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   tag: 'logo',
                   child: Container(
                     child: Image.asset('images/logo.png'),
-                    height: animation.value * 80,
+                    height: animation.value * 90,
                   ),
                 ),
                 AnimatedTextKit(
@@ -73,7 +73,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               ],
             ),
             SizedBox(
-              height: 48.0,
+              height: 20,
             ),
             RoundedButton(
               buttonColor: Colors.blue,
@@ -88,6 +88,36 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               onPressed: () {
                 Navigator.pushNamed(context, '/register');
               },
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(child: SizedBox(width: 150.0, height: 65)),
+                const Text(
+                  'Instant',
+                  style: TextStyle(fontSize: 13.0, fontStyle: FontStyle.italic),
+                ),
+                Expanded(
+                  child: DefaultTextStyle(
+                    style: const TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w900,
+                        fontFamily: 'Horizon',
+                        color: Colors.amber),
+                    child: AnimatedTextKit(
+                      animatedTexts: [
+                        RotateAnimatedText('MESSAGING'),
+                        RotateAnimatedText('HAPPINESS'),
+                      ],
+                      isRepeatingAnimation: true,
+                      repeatForever: true,
+                      pause: Duration(milliseconds: 0),
+                      onTap: () {
+                        print("Tap Event");
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
