@@ -89,10 +89,13 @@ class _ChatScreenState extends State<ChatScreen> {
                   Material(
                     child: TextButton(
                       onPressed: () {
+                        var sendTime = Timestamp.now();
+
                         _textController.clear();
                         _fireStore.collection('messages').add({
                           'sender': currentLoggedinUser?.email,
-                          'text': messageText
+                          'text': messageText,
+                          'time': sendTime
                         });
                         //Implement send functionality.
                       },
@@ -125,7 +128,10 @@ class MessageBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _fireStore.collection('messages').snapshots(),
+      stream: _fireStore
+          .collection('messages')
+          .orderBy('time', descending: true)
+          .snapshots(),
       builder: (context, snapshot) {
         if (!(snapshot.hasData)) {
           EasyLoading.show();
