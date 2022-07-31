@@ -10,6 +10,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  var _textController = TextEditingController();
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore _fireStore = FirebaseFirestore.instance;
   String? messageText;
@@ -96,25 +97,30 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
+                      controller: _textController,
                       onChanged: (value) {
                         messageText = value;
                         //Do something with the user input.
                       },
-                      style: TextStyle(color: Colors.black54),
+                      style: TextStyle(color: Colors.black87),
                       decoration: kMessageTextFieldDecoration,
                     ),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      _fireStore.collection('messages').add({
-                        'sender': currentLoggedinUser?.email,
-                        'text': messageText
-                      });
-                      //Implement send functionality.
-                    },
-                    child: Text(
-                      'Send',
-                      style: kSendButtonTextStyle,
+                  Material(
+                    child: TextButton(
+                      onPressed: () {
+                        _textController.clear();
+                        _fireStore.collection('messages').add({
+                          'sender': currentLoggedinUser?.email,
+                          'text': messageText
+                        });
+                        //Implement send functionality.
+                      },
+                      child: Icon(
+                        Icons.send,
+                        color: Colors.lightBlueAccent,
+                        size: 32,
+                      ),
                     ),
                   ),
                 ],
