@@ -7,13 +7,11 @@ class WelcomeScreen extends StatefulWidget {
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState  extends State<WelcomeScreen>
+class _WelcomeScreenState extends State<WelcomeScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation animation, animation2;
 
-  
-  
   @override
   void initState() {
     // TODO: implement initState
@@ -26,7 +24,7 @@ class _WelcomeScreenState  extends State<WelcomeScreen>
 
     animation = CurvedAnimation(parent: controller, curve: Curves.decelerate);
     animation2 =
-        ColorTween(begin: Colors.white.withOpacity(0), end: Colors.white)
+        ColorTween(begin: Colors.black.withOpacity(1), end: Colors.white)
             .animate(controller);
 
     controller.forward();

@@ -69,6 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 elevation: 5.0,
                 child: MaterialButton(
+                  textColor: Colors.white,
                   onPressed: () async {
                     EasyLoading.show();
 

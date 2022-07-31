@@ -3,7 +3,6 @@ import 'package:flash_chat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-
 class RegistrationScreen extends StatefulWidget {
   @override
   _RegistrationScreenState createState() => _RegistrationScreenState();
@@ -68,7 +67,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   onPressed: () async {
                     EasyLoading.show();
                     try {
-                      int newuser = await _auth?.createUserWithEmailAndPassword(
+                      var newuser = await _auth?.createUserWithEmailAndPassword(
                           email: email, password: password);
 
                       EasyLoading.dismiss();
